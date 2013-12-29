@@ -1,5 +1,7 @@
-Homework Upload 精讚版作業上傳
+Homework Upload 精讚版作業上傳 for NTPC
 =========
+
+原始版本：
 
 Homework upload for school, JinZang version.
 
@@ -10,7 +12,7 @@ Homework upload for school, JinZang version.
 
 +  使用git下載到目錄 your_path
 ```
-$ git clone https://github.com/AxerZ/homework.git your_path
+$ https://github.com/t301000/homework-ntpc.git your_path
 ```
 
 +  修改目錄的權限
@@ -22,5 +24,4 @@ $ chmod 777 libs/templates_c
 ```
 Contact
 -----------
-Problems please contact axer@tc.edu.tw  Blog http://note.tc.edu.tw/
-or contact t301000@gmail.com Blog http://163.20.124.29/~t301000/ 
+Problems please contact t301000@gmail.com Blog http://163.20.124.29/~t301000/ 
