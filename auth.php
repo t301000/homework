@@ -59,7 +59,58 @@ switch($f){
     $view->assign('msg', $msg);
     $view->display('Message.mtpl');
     break;
+    
+  case "NTPCLogin":
+	require 'includes/Auth/LightOpenID.php';
+	header("Content-Type:text/html; charset=utf-8");
+	try {
+		$openid = new LightOpenID(SITE_DN);
+		if(!$openid->mode) {
+			if($_SERVER['REQUEST_METHOD'] == 'GET') {
+				$openid->identity = 'http://openid.ntpc.edu.tw/';
+				$openid->required = array('contact/email', 'namePerson',  'pref/timezone');
+				
+				header('Location: ' . $openid->authUrl());
+			}
+		} elseif($openid->mode == 'cancel') {
+			echo '認證過程被取消';
+		} else {
+			$url= SITE_URL;
+			$wt=5000;
+			$info="";
+			$schoolid=$role="";  //單位代碼 與 身份別
+			  if($openid->validate())
+			  { //通過認證
+				  $id = explode('/', $openid->identity);
+				  $attr = $openid->getAttributes();
+				  $info=substr($attr['pref/timezone'],2,strlen($attr['pref/timezone'])-4); //授權資訊
+				  //$attr['pref/timezone']內容如 [{"id":"單位代碼","name":"新北市立xx國民中學","role":"教師","title":"專任教師","groups":["科任教師"]}]
+				  $info=explode(",", $info); //切割為陣列
+				  $arr['fullname']=$attr['namePerson']; //姓名
+				  $arr['email']=$attr['contact/email']; //ntpc email
+				  $schoolid=substr(str_replace('"','',$info[0]),3);
+				  $role=substr(str_replace('"','',$info[2]),5);
 
+				  if( $schoolid == SCH_NAME and $role=='教師'){
+					  $msg= "登入成功";
+					  $url= SITE_URL . "manage.php?f=Homework";
+					  $wt=2000;
+					  $IsOk =$obj->Tc_Auth( $arr);
+					}
+					else $msg= "你不屬於".SCH_NAME ."或不具教師身份，無法登入";
+					
+					$msg .= $obj->JS_CntDn( $url, $wt);
+					$view->assign('msg', $msg);
+					$view->display('Message.mtpl');
+		  }else{
+			  header("Location:index.php");
+		  }
+		}
+	} catch(ErrorException $e) {
+		echo $e->getMessage();
+	}
+    break;
+    
   case "TcAuth":
     include "includes/commonclass.php";
     $tobj = new TC_OID_BASE();

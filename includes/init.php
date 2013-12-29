@@ -4,31 +4,32 @@
 if (__FILE__ == ''){ die('Fatal error code: 0'); }
 
 // ----==== 程式初始檔開始 ====-----
-define('DB_NAME', "hw"); //資料庫名
+define('DB_NAME', "hw2"); //資料庫名
 
 define('DB_ADDR', "localhost");  //資料庫ip
 
-define('DB_USR', "hw");  // 資料庫使用者
+define('DB_USR', "hw2");  // 資料庫使用者
 
-define('DB_PWD', "HKuA6ntKGRdm6veu");  //資料庫密碼
+define('DB_PWD', "hw2admin");  //資料庫密碼
 
 define('SUPER_PASSWD', "12345");  //最高權限user 密碼
 
 define('SendAllEmail', 1);  //Set 1 to enable email
 
-define('SITE_CNAME', "作業上傳精簡版");  //網站標頭
+define('SITE_CNAME', "作業上傳");  //網站標頭
 
-define('SITE_DN', "heart.tc.edu.tw"); //網域，請勿加上'/'
+define('SITE_DN', "163.20.124.29"); //網域，請勿加上'/'
 
-define('SITE_URL', "http://". SITE_DN ."/homework/");  // 修改網站位址，請保留字串最後的 '/'
+define('SITE_URL', "http://". SITE_DN ."/hw2/");  // 修改網站位址，請保留字串最後的 '/'
 
 // 若為台中地區學校，可指定學校名稱，例：北區太平國小，以供公務帳號登入，留空代表不使用公務帳號功能
 // 若已設定學校，則公務帳號認證後，若屬於設定的學校，將可以直接使用管理功能。
-define('SCH_NAME', "西屯區福科國中");
+// 新北市學校請填學校代碼，即可經由新北市之OpenID（校務行政自訂帳號、教師身份）登入。
+define('SCH_NAME', "014569");
 
 define('UPDIR', "upload/");
 
-define('UPLOAD_DIR', "/var/www/html/homework/".UPDIR ); //修改上傳位址
+define('UPLOAD_DIR', "/var/www/hw2/".UPDIR ); //修改上傳位址
 
 define('TEMP_PATH', "temp/");
 

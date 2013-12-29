@@ -16,7 +16,14 @@
      <li>密碼 <input name="passwd" size="20" maxlength="16" type="password" /></li>
      <li>請輸入中文字「好」字 <input id="validate" type="text" name="validate" style="width:25px;"  maxlength="1" size="4" /></li>
      <li><input name="sb1" style="margin:10px 0 10px 10px;" value=" 登入管理介面 " type="submit" /></li>
-{{if $smarty.const.SCH_NAME neq ""}} <li>或 <a href="index.php?f=TCLogin"> <img width="50" src="images/manage/tclogo.gif" />使用台中市公務帳號登入 限定[{{$smarty.const.SCH_NAME}}]</a></li>{{/if}}
+{{if $smarty.const.SCH_NAME neq ""}}
+	<!-- 台中市 -->
+	<!-- <li>或 <a href="index.php?f=TCLogin"> <img width="50" src="images/manage/tclogo.gif" />使用台中市公務帳號登入 限定[{{$smarty.const.SCH_NAME}}]</a></li> -->
+	<!-- 台中市end -->
+	<!-- 新北市 -->
+	<li><a href="auth.php?f=NTPCLogin">使用新北市 OpenID 登入 <img alt="使用新北市校務行政帳號登入" src="images/manage/ntpc_openid.png" /></a></li>
+	<!-- 新北市end -->
+{{/if}}
      </ul>
     </form>
   </div> 
