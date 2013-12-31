@@ -83,14 +83,19 @@ switch($f){
 			  { //通過認證
 				  $id = explode('/', $openid->identity);
 				  $attr = $openid->getAttributes();
-                  //$attr['pref/timezone']內容為字串，如
-                  // [{"id":"單位代碼","name":"新北市立xx國民中學","role":"教師","title":"專任教師","groups":["科任教師"]}]
-                  //去掉頭尾之 [ ] ，取出 JSON 字串並解碼成物件 
-                  $info = json_decode(substr($attr['pref/timezone'],1,strlen($attr['pref/timezone'])-2));
+      
+                  /*
+                   * $attr['pref/timezone']內容如
+                   * [{"id":"單位代碼","name":"新北市立xx國民中學","role":"教師","title":"專任教師","groups":["科任教師"]}]
+                   * 解碼存至$info，結果為陣列，只有1個元素，為物件 
+                   * print_r($info) 結果為
+                   * Array ( [0] => stdClass Object ( [id] => 014569 [name] => 新北市立育林國民中學 [role] => 教師 [title] => 專任教師 [groups] => Array ( [0] => 科任教師 ) ) )
+                   */
+                  $info = json_decode($attr['pref/timezone']);
                   $arr['fullname'] = $attr['namePerson']; //姓名
 				  $arr['email'] = $attr['contact/email']; //ntpc email
-                  $schoolid = $info -> id;
-                  $role = $info -> role;
+                  $schoolid = $info[0] -> id;
+                  $role = $info[0] -> role;
 
 				  if( $schoolid == SCH_NAME and $role=='教師'){
 					  $msg= "登入成功";
@@ -104,7 +109,6 @@ switch($f){
 					$view->assign('msg', $msg);
 					$view->display('Message.mtpl');
 		  }else{
-			  //未通過認證
 			  header("Location:index.php");
 		  }
 		}
