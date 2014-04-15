@@ -95,7 +95,8 @@ class Homework_class extends Bila_base_class {
     if($IsOk > 0){ $msg= "傳檔類型 ". implode(',',$this->NotAllowedFileExtArr) . "不被允許"; return -2;}
     if( $this->CreateDirectory($currDir)<= 0){ $msg= "建立目錄[$currDir]失敗";return -3;}
     $_date = date("YmdHis"). rand(0, 100) ;    //ex: 20080911123456
-    $newfn= "{$_date}.{$ext}";
+    //$newfn="{$_date}.{$ext}";
+    $newfn= substr($fn,0,-(strlen($ext)+1))."_{$_date}.{$ext}";  //原始檔名後綴 $_date
     $newpath =  $currDir. $newfn;
     @copy( $tempfs,  $newpath);
     @unlink($tempfs);
