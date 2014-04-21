@@ -99,6 +99,8 @@ class Manage_class extends Bila_base_class {
       $arr[$ii]['hwc'] = $this->Encrypt_Arr2c($tbl);
       $tbl['stp']=9;  //download c
       $arr[$ii]['dlc'] = $this->Encrypt_Arr2c($tbl);
+      $tbl['stp']=11;  //export score c
+      $arr[$ii]['scorec'] = $this->Encrypt_Arr2c($tbl);
       if( $currD <= $arr[$ii]['dueDT'] &&  $currD >= $arr[$ii]['fromDT'] && $arr[$ii]['closed']==0)$arr[$ii]['canUpload']= 1;
       else $arr[$ii]['canUpload']= 0;
 

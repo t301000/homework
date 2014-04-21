@@ -241,6 +241,62 @@ switch($f){
         $view->assign('msg', $msg);
         $view->display('Message.mtpl');
         break;
+      case 11: //匯出分數
+        $hID= $tbl['sn'];
+		/** Include PHPExcel */
+		require_once 'includes/PHPExcel.php';
+		require_once 'includes/PHPExcel/IOFactory.php';
+		
+		$dirName=HWPREFIX . $hID;
+		$row=$obj->GetOneHw($hID);
+		$hwTitle=$row['hwTitle'];
+		$classID=($row['classID'])?$row['classID']:"無分類群組";
+		//die($hID."<br>".$hwTitle."<br>".$classID);
+		
+		$sql="select `cname`, `fileName`, `score` from hwUpload where `hID`=". $hID ." order by `cname`";
+		$tmp=$obj->DB->Execute($sql);
+		//die(print_r($tmp));
+		
+		// Create new PHPExcel object
+		$objPHPExcel = new PHPExcel();
+
+		$objPHPExcel->setActiveSheetIndex(0);  //設定預設顯示的工作表
+		$objActSheet = $objPHPExcel->getActiveSheet(); //指定預設工作表為 $objActSheet
+		$objActSheet->setTitle( $hwTitle );  //設定標題
+		$objPHPExcel->createSheet(); //建立新的工作表，上面那三行再來一次，編號要改
+
+		/*
+		$objActSheet->getColumnDimension('A')->setAutoSize(true);  //自動寬度
+		$objActSheet->getColumnDimension('B')->setAutoSize(true);  //自動寬度
+		*/
+		$objActSheet->getColumnDimension('C')->setAutoSize(true);  //自動寬度
+
+		$objActSheet->setCellValue("A1", '姓名')
+									->setCellValue("B1", '分數')
+									->setCellValue("C1", '檔案名稱');
+									
+		$i=2;
+		while($row=$tmp->FetchRow()){
+			//產生 $cname , $fileName , $score
+			foreach($row as $k => $v){
+				$$k=$v;
+			}
+			$objActSheet->setCellValue("A{$i}", $cname)
+										->setCellValue("B{$i}", $score)
+										->setCellValue("C{$i}", substr( $fileName, strlen($dirName)+1 ) );
+			$i++;	
+		}
+
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment;filename='. $hwTitle . '-' . $classID .'.xls');
+		header('Cache-Control: max-age=0');
+		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
+		$objWriter->setPreCalculateFormulas(false);
+		$objWriter->save('php://output');
+		exit;
+
+
+        break;
       default:
         $_SESSION['currURL']= $_SERVER['REQUEST_URI'];
         $view->display('HwManage.mtpl');

@@ -88,7 +88,8 @@ return true;
 [<a href='manage.php?f=Homework&amp;c={{$d.cc}}'>{{if $d.closed eq 1}}有效{{else}}無效{{/if}}</a>] 
 [<a href='manage.php?f=Homework&amp;c={{$d.dspc}}'>{{if $d.display eq 1}}不{{/if}}展示</a>] 
 [<a href='manage.php?f=Homework&amp;c={{$d.mc}}'>修</a>] 
-[<a href='manage.php?f=Homework&amp;c={{$d.hwc}}' target='_blank'>作業管理</a>] [<a href='manage.php?f=Homework&amp;c={{$d.dlc}}'>下載整包</a>]
+[<a href='manage.php?f=Homework&amp;c={{$d.hwc}}' target='_blank'>作業管理</a>] [<a href='manage.php?f=Homework&amp;c={{$d.dlc}}'>下載整包</a>] 
+ [<a href='manage.php?f=Homework&amp;c={{$d.scorec}}'>匯出分數</a>]
 
 [<a href='manage.php?f=Homework&amp;c={{$d.delc}}' onclick="return confirm('已上傳作業亦會一併刪除，此操作不能復原，是否確定要刪除此筆作業單：\n\n[{{$d.hID}}] {{$d.hwTitle}}？')"><font color="red">刪</font></a>]
 </td>
