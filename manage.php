@@ -251,11 +251,9 @@ switch($f){
 		$row=$obj->GetOneHw($hID);
 		$hwTitle=$row['hwTitle'];
 		$classID=($row['classID'])?$row['classID']:"無分類群組";
-		//die($hID."<br>".$hwTitle."<br>".$classID);
 		
 		$sql="select `cname`, `fileName`, `score` from hwUpload where `hID`=". $hID ." order by `cname`";
 		$tmp=$obj->DB->Execute($sql);
-		//die(print_r($tmp));
 		
 		// Create new PHPExcel object
 		$objPHPExcel = new PHPExcel();
@@ -288,7 +286,7 @@ switch($f){
 		}
 
 		header('Content-Type: application/vnd.ms-excel');
-		header('Content-Disposition: attachment;filename='. $hwTitle . '-' . $classID .'.xls');
+		header('Content-Disposition: attachment;filename='. $dirName . '_'. $hwTitle . '_' . $classID .'.xls');
 		header('Cache-Control: max-age=0');
 		$objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel5');
 		$objWriter->setPreCalculateFormulas(false);
