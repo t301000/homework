@@ -18,7 +18,7 @@ define('SendAllEmail', 1);  //Set 1 to enable email
 
 define('SITE_CNAME', "作業上傳");  //網站標頭
 
-define('SITE_DN', "163.20.124.29"); //網域，請勿加上'/'
+define('SITE_DN', $_SERVER[HTTP_HOST]); //網域，請勿加上'/'
 
 define('SITE_URL', "http://". SITE_DN ."/hw2/");  // 修改網站位址，請保留字串最後的 '/'
 
